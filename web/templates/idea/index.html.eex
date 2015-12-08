@@ -1,0 +1,18 @@
+<div class="container">
+  <table class="table table-striped">
+  <%= if length(@ideas) > 0 do %>
+      <%= for idea <- @ideas do %>
+        <tr>
+          <td><span class="badge pull-left"><%= idea.score %></span></td>
+          <td><%= idea.description %></td>
+        </tr>
+      <% end %>
+  <% else %>
+    <tr>
+      <td> </td>
+      <td>No Ideas</td>
+    </tr>
+  <% end %>
+  </ul>
+  </table>
+</div>
