@@ -16,10 +16,10 @@
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="/" class="navbar-brand">AppGenApp</a></li>
+          <li><%= link "AppGenApp", to: "/", class: "navbar-brand" %></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/ideas">All Ideas</a></li>
+          <li><%= link "Ideas", to: idea_path(@conn, :index) %></li>
         </ul>
       </div>
 

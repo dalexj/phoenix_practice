@@ -6,8 +6,19 @@ defmodule Hello.IdeaController do
   plug :scrub_params, "idea" when action in [:create]
 
   def index(conn, _params) do
-    ideas = Repo.all(Idea)
-    render(conn, "index.html", ideas: ideas)
+    idea = Idea.changeset(%Idea{})
+    ideas = Repo.all(from i in Idea, order_by: [desc: i.score])
+    render(conn, "index.html", ideas: ideas, idea: idea)
+  end
+
+  def upvote(conn, %{ "id" => id }) do
+    vote_for_idea(id, 1)
+    redirect conn, to: idea_path(conn, :index)
+  end
+
+  def downvote(conn, %{ "id" => id }) do
+    vote_for_idea(id, -1)
+    redirect conn, to: idea_path(conn, :index)
   end
 
   def create(conn, %{"idea" => idea_params}) do
@@ -21,5 +32,12 @@ defmodule Hello.IdeaController do
       {:error, changeset} ->
         redirect conn, to: idea_path(conn, :index)
     end
+  end
+
+  def vote_for_idea(id, up_or_down) do
+    idea = Repo.get!(Idea, id)
+    changeset = Idea.changeset(idea, %{ "score" => idea.score + up_or_down })
+
+    Repo.update(changeset)
   end
 end

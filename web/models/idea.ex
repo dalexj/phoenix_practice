@@ -1,6 +1,7 @@
 defmodule Hello.Idea do
   use Hello.Web, :model
 
+  before_insert :set_score_to_zero
   schema "ideas" do
     field :description, :string
     field :score, :integer, default: 0
@@ -10,6 +11,10 @@ defmodule Hello.Idea do
 
   @required_fields ~w(description)
   @optional_fields ~w(score)
+
+  def set_score_to_zero(changeset) do
+    Map.merge(changeset, %{ "score" => 0 })
+  end
 
   @doc """
   Creates a changeset based on the `model` and `params`.
