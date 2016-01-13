@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>App Generator App</title>
+    <title>Boxes - The Hit MMO</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
@@ -16,13 +16,13 @@
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><%= link "AppGenApp", to: "/", class: "navbar-brand" %></li>
+          <li><%= link "Boxes", to: "/", class: "navbar-brand" %></li>
+          <li><%= link "Logout", to: player_path(@conn, :logout), class: "navbar-brand" %></li>
         </ul>
       </div>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-
       <%= @inner %>
 
     </div> <!-- /container -->

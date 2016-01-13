@@ -4,6 +4,7 @@ defmodule Hello.Player do
   schema "players" do
     field :username, :string
     field :color, :string
+    field :password, :string
     field :x, :integer
     field :y, :integer
 
@@ -12,7 +13,7 @@ defmodule Hello.Player do
 
   before_insert :set_coords_to_zero
 
-  @required_fields ~w(username color)
+  @required_fields ~w(username color password)
   @optional_fields ~w(x y)
 
   def set_coords_to_zero(changeset) do
