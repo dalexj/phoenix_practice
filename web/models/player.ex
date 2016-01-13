@@ -1,19 +1,22 @@
-defmodule Hello.Idea do
+defmodule Hello.Player do
   use Hello.Web, :model
 
-  before_insert :set_score_to_zero
-  schema "ideas" do
-    field :description, :string
-    field :score, :integer, default: 0
+  schema "players" do
+    field :username, :string
+    field :color, :string
+    field :x, :integer
+    field :y, :integer
 
     timestamps
   end
 
-  @required_fields ~w(description)
-  @optional_fields ~w(score)
+  before_insert :set_coords_to_zero
 
-  def set_score_to_zero(changeset) do
-    Map.merge(changeset, %{ "score" => 0 })
+  @required_fields ~w(username color)
+  @optional_fields ~w(x y)
+
+  def set_coords_to_zero(changeset) do
+    Map.merge(changeset, %{ "x" => 0, "y" => 0 })
   end
 
   @doc """

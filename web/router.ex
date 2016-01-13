@@ -16,10 +16,8 @@ defmodule Hello.Router do
   scope "/", Hello do
     pipe_through :browser # Use the default browser stack
 
-    get "/", IdeaController, :index
-    resources "/ideas", IdeaController, only: [:index, :create]
-    post "/ideas/:id/upvote", IdeaController, :upvote
-    post "/ideas/:id/downvote", IdeaController, :downvote
+    get "/", PlayerController, :new
+    resources "/players", PlayerController, only: [:new, :create]
   end
 
   # Other scopes may use custom stacks.
