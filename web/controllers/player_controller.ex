@@ -11,10 +11,10 @@ defmodule Hello.PlayerController do
     changeset = Player.changeset(%Player{}, player_params)
 
     case Repo.insert(changeset) do
-      {:ok, _player} ->
+      {:ok, player} ->
         conn
-          |> put_flash(:info, "Player created successfully.")
-          |> redirect(to: player_path(conn, :new)) # change this
+          |> put_session(:player_id, player.id)
+          |> redirect(to: page_path(conn, :game))
       {:error, changeset} ->
         redirect conn, to: player_path(conn, :new)
     end

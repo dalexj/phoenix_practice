@@ -1,6 +1,8 @@
 defmodule Hello.Player do
   use Hello.Web, :model
 
+  @derive {Poison.Encoder, only: [:username, :color, :x, :y]}
+
   schema "players" do
     field :username, :string
     field :color, :string
@@ -17,7 +19,9 @@ defmodule Hello.Player do
   @optional_fields ~w(x y)
 
   def set_coords_to_zero(changeset) do
-    Map.merge(changeset, %{ "x" => 0, "y" => 0 })
+    changeset
+      |> put_change(:x, 0)
+      |> put_change(:y, 0)
   end
 
   @doc """

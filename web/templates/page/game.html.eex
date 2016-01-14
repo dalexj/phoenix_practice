@@ -1,3 +1,18 @@
 <h1>
   game page
 </h1>
+
+<center>
+  <canvas style="border:1px solid black;" id="game-canvas" width="500" height="500"></canvas>
+</center>
+<a id="clickme" class="btn btn-default">click me</a>
+
+
+<script type="text/javascript">
+  window.players = <%= {:safe, @json_players} %>
+  window.userToken = '<%= Phoenix.Token.sign(@conn, "player", @player.id) %>'
+
+  window.onload = function () {
+    window.connectGame()
+  }
+</script>

@@ -2,11 +2,14 @@ defmodule Hello.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "rooms:*", Hello.RoomChannel
+  # channel "rooms:*", Hello.RoomChannel
+  channel "players:*", Hello.PlayerChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
   # transport :longpoll, Phoenix.Transports.LongPoll
+
+
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -19,9 +22,20 @@ defmodule Hello.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    case Phoenix.Token.verify(socket, "player", token) do
+      {:ok, player_id} ->
+        username = Hello.Repo.get_by(Hello.Player, id: player_id).username
+        socket = assign(socket, :username, username)
+        socket = assign(socket, :player_id, player_id)
+        {:ok, socket}
+      {:error, _reason} ->
+        :error
+    end
   end
+  # def connect(_params, socket) do
+  #   {:ok, socket}
+  # end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
