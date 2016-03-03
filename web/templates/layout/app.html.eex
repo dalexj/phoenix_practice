@@ -18,7 +18,6 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><%= link "Boxes", to: "/", class: "navbar-brand" %></li>
-          <li><%= link "Logout", to: player_path(@conn, :logout), class: "navbar-brand" %></li>
         </ul>
       </div>
 

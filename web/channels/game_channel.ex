@@ -1,12 +1,12 @@
 defmodule Hello.RoomChannel do
   use Phoenix.Channel
 
-  def join("rooms:lobby", _message, socket) do
+  def join("game:lobby", _message, socket) do
     send self, :after_join
     {:ok, socket}
   end
 
-  def join("rooms:" <> _private_room_id, _params, _socket) do
+  def join("game:" <> _private_room_id, _params, _socket) do
     {:error, %{reason: "unauthorized"}}
   end
 

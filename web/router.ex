@@ -15,12 +15,7 @@ defmodule Hello.Router do
 
   scope "/", Hello do
     pipe_through :browser # Use the default browser stack
-
-    get "/", PlayerController, :new
-    post "/login", PlayerController, :login
-    get "/logout", PlayerController, :logout
-    resources "/players", PlayerController, only: [:new, :create]
-    get "/game", PageController, :game
+    get "/", PageController, :game
   end
 
   # Other scopes may use custom stacks.
